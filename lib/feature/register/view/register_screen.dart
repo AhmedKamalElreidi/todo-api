@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
               AppFunctions.showToast(text: state.error);
             }
             if (state is RegisterSuccessState) {
-              SecureStorage.saveData(key: "token", value: state.token)
+              SecureStorage.saveData(key: SecureKey.token, value: state.token)
                   .then((value) async {
                 SecureVariables.token =
                     await SecureStorage.getData(key: SecureKey.token);

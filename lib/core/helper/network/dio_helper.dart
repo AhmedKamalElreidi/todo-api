@@ -2,55 +2,33 @@
 
 import 'package:dio/dio.dart';
 import 'package:todo_tast_app/core/constant/end_points/end_points.dart';
-import 'package:todo_tast_app/core/get_task_model/get_task_model.dart';
-import 'package:todo_tast_app/core/util/secure_keys/secure_variable.dart';
 
 class DioHelper {
-  // Future<GetTaskModel?> getTask() async {
+  // Future<AllTasksModel?> getTaskks() async {
+  //   // var dio = ;
   //   try {
-  //     var res = await Dio().get("https://eraasoft.integration25.com/api/tasks");
-  //     if (res.statusCode == 200) {
-  //       return res.data;
+  //     var headers = {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer ${SecureVariables.token}'
+  //     };
+  //     var response = await Dio().get(
+  //       'https://eraasoft.integration25.com/api/tasks',
+  //       options: Options(
+  //         method: 'GET',
+  //         headers: headers,
+  //       ),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       return AllTasksModel.fromJson(response.data);
   //     }
-  //     // var url = Uri.parse(
-  //     //     'https://newsapi.org/v2/top-headlines?country=us&category=$category&apiKey=125aac10045c4091a1fa77bc672ce782');
-  //     // var res = await http.get(url);
-  //     // if (res.statusCode == 200) {
-  //     //   return NewsModel.fromJson(json.decode(res.body));
-  //     // }
   //   } catch (e) {
   //     print(e.toString());
   //   }
+
   //   return null;
   // }
-
-  Future<GetTaskModel?> getTaskks() async {
-    // var dio = ;
-    try {
-      var headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${SecureVariables.token}'
-      };
-      var response = await Dio().get(
-        'https://eraasoft.integration25.com/api/tasks',
-        options: Options(
-          method: 'GET',
-          headers: headers,
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        return GetTaskModel
-            .fromDataTasksId471TitleNewTaskdsdDescriptionNewDescriptiondsaImageHttpsEraasoftIntegration25ComStorageTasksXZGtf4KTxkfk2Jcx4UCvoPbQqyr0qG6lUJnKPlhVPngStartDate20231201EndDate20231202StatusNewId480TitleNewTaskdsdDescriptionNewDescriptiondsaImageHttpsEraasoftIntegration25ComStorageTasksRuvMuVtE7Oh6YBl90HoH6e591wsH0hnkeBxGSfG3PngStartDate20231215EndDate20231220StatusNewMetaTotal2PerPage15CurrentPage1LastPage1LinksFirstHttpsEraasoftIntegration25ComApiTasksPage1LastHttpsEraasoftIntegration25ComApiTasksPage1PrevNullNextNullPagesHttpsEraasoftIntegration25ComApiTasksPage1MessageErrorStatus200(
-                response.data);
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-
-    return null;
-  }
 
   static late Dio dio;
   static init() {

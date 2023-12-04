@@ -36,6 +36,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               const Center(child: CircularProgressIndicator());
             }
             if (state is AddTaskSuccessState) {
+              //TaskCubit.get(context).getTask();
               AppFunctions.showToast(text: "Add Task Success");
             }
           },

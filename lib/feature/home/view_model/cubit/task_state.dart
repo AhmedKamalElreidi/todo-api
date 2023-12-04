@@ -1,4 +1,4 @@
-import 'package:todo_tast_app/core/get_task_model/get_task_model.dart';
+import 'package:todo_tast_app/core/allTasksModel/all_tasks_model.dart';
 
 class TaskState {}
 
@@ -7,9 +7,9 @@ final class TaskInitial extends TaskState {}
 final class TaskLoadingState extends TaskState {}
 
 final class TaskSuccessState extends TaskState {
-  final GetTaskModel getTaskModel;
+  final AllTasksModel allTasksModel;
 
-  TaskSuccessState({required this.getTaskModel});
+  TaskSuccessState(this.allTasksModel);
 }
 
 final class TaskErrorState extends TaskState {

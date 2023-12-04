@@ -162,12 +162,13 @@ class HomeScreen extends StatelessWidget {
         child: BlocConsumer<TaskCubit, TaskState>(
           listener: (context, state) {},
           builder: (context, state) {
-            if (state is TaskSuccessState) {
+            var cubit = TaskCubit.get(context);
+            if (cubit.allTaskModel != null) {
               return Padding(
                 padding: const EdgeInsets.all(22),
                 child: ListView.separated(
                     itemBuilder: (context, index) {
-                      var info = state.getTaskModel.data?.tasks![index];
+                      var info = cubit.allTaskModel?.data?.tasks![index];
                       return Container(
                         decoration: BoxDecoration(
                             color: Colors.green.withOpacity(0.2),
@@ -256,15 +257,18 @@ class HomeScreen extends StatelessWidget {
                     separatorBuilder: (context, index) => const SizedBox(
                           height: 8,
                         ),
-                    itemCount: state.getTaskModel.data?.tasks!.length
-                        as int), // as int
+                    itemCount:
+                        cubit.allTaskModel?.data?.tasks!.length ?? 0), // as int
               );
-            } else if (state is TaskErrorState) {
+            } /* else if (state is TaskErrorState) {
               return Text(state.error);
-            } else {
+            }*/
+            else if (state is TaskLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            } else {
+              return const Center(child: Text("Add New Task"));
             }
           },
         ),
