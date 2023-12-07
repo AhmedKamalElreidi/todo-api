@@ -32,11 +32,12 @@ class AddTaskCubit extends Cubit<AddTaskState> {
     }
   }
 
-  Future<void> addTask(
-      {required String title,
-      required String description,
-      required String startDate,
-      required String endDate}) async {
+  Future<void> addTask({
+    required String title,
+    required String description,
+    required String startDate,
+    required String endDate,
+  }) async {
     emit(AddTaskLoadingState());
 
     final response = await DioHelper.postData(
@@ -47,7 +48,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
           "description": description,
           "start_date": startDate,
           "end_date": endDate,
-          //"image",
+          // "image": image,
           "status": "new",
         });
     print("response${response.data}");

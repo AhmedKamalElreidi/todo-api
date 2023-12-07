@@ -199,6 +199,14 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 10,
                               ),
+                              // SizedBox(
+                              //   width: 50,
+                              //   height: 50,
+                              //   child: Image.file((info?.image ?? "") as File),
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
                               Row(
                                 children: [
                                   Expanded(

@@ -7,21 +7,22 @@ import 'package:todo_tast_app/core/helper/secure_storage/secure_storage.dart';
 import 'package:todo_tast_app/core/util/secure_keys/secure_key.dart';
 import 'package:todo_tast_app/core/util/secure_keys/secure_variable.dart';
 import 'package:todo_tast_app/feature/home/view/home_screen.dart';
-import 'package:todo_tast_app/feature/register/view/register_screen.dart';
 import 'package:todo_tast_app/feature/splash/splash_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SecureStorage.init();
+
   await DioHelper.init();
   Bloc.observer = MyBlocObserver();
+
   SecureVariables.token = await SecureStorage.getData(key: SecureKey.token);
   Widget? widget;
   if (SecureVariables.token != null) {
     widget = const HomeScreen();
   } else {
-    widget = const RegisterScreen();
+    widget = const SplashView();
   }
   runApp(MyApp(
     startWidget: widget,
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const SplashView(),
+        home: startWidget,
       ),
     );
   }

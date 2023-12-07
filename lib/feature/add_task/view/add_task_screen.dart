@@ -7,6 +7,7 @@ import 'package:todo_tast_app/core/util/widgets/bottom_widget/bottom_widget.dart
 import 'package:todo_tast_app/core/util/widgets/text_form_field_widget/text_form_field_widget.dart';
 import 'package:todo_tast_app/feature/add_task/view_model/add_tesk_cubit.dart';
 import 'package:todo_tast_app/feature/add_task/view_model/add_tesk_state.dart';
+import 'package:todo_tast_app/feature/home/view/home_screen.dart';
 
 import '../../../core/util/widgets/app_bar_widget/app_bar_widget.dart';
 
@@ -38,6 +39,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             if (state is AddTaskSuccessState) {
               //TaskCubit.get(context).getTask();
               AppFunctions.showToast(text: "Add Task Success");
+              AppFunctions.navigateTo(
+                  context: context, navigatedScreen: const HomeScreen());
             }
           },
           builder: (context, state) {
@@ -136,10 +139,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           onTap: () {
                             if (cubit.formKey.currentState!.validate()) {
                               cubit.addTask(
-                                  title: cubit.titleController.text,
-                                  description: cubit.descriptionController.text,
-                                  startDate: cubit.startDateController.text,
-                                  endDate: cubit.endDateController.text);
+                                title: cubit.titleController.text,
+                                description: cubit.descriptionController.text,
+                                startDate: cubit.startDateController.text,
+                                endDate: cubit.endDateController.text,
+                              );
                             }
                           })
                     ],

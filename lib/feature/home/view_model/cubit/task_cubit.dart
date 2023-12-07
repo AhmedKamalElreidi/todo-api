@@ -9,6 +9,23 @@ class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial());
 
   static TaskCubit get(context) => BlocProvider.of(context);
+
+  AllTasksModel? allTaskModel;
+
+  Future<void> getTask() async {
+    // AllTasksModel? allTasksModel;
+    allTaskModel = null;
+    emit(TaskLoadingState());
+    final response = await DioHelper.getData(
+        url: EndPoints.tasks, token: SecureVariables.token);
+    if (response.statusCode == 200) {
+      allTaskModel = AllTasksModel.fromJson(response.data);
+      emit(TaskSuccessState(allTaskModel!));
+    } else {
+      emit(TaskErrorState(error: response.data["message"]));
+    }
+  }
+
   // getTask() async {
   //   emit(TaskLoadingState());
   //   try {
@@ -22,21 +39,7 @@ class TaskCubit extends Cubit<TaskState> {
   // if (response.statusCode == 200) {
   //       return AllTasksModel.fromJson(response.data);
   //     }
-  AllTasksModel? allTaskModel;
 
-  Future<void> getTask() async {
-    // AllTasksModel? allTasksModel;
-    allTaskModel = null;
-    emit(TaskLoadingState());
-    final response = await DioHelper.getData(
-        url: EndPoints.tasks, token: SecureVariables.token);
-    if (response.statusCode == 200) {
-      allTaskModel = AllTasksModel.fromJson(response.data);
-      emit(TaskSuccessState(AllTasksModel.fromJson(response.data)));
-    } else {
-      emit(TaskErrorState(error: response.data["message"]));
-    }
-  }
   // final response = await DioHelper.getData(
   //     url: EndPoints.tasks, token: SecureVariables.token);
   // if (response.statusCode == 200) {
