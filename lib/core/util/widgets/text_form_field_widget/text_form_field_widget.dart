@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText;
   final String? Function(String?)? validator;
   final TextInputType keyboardType;
   final void Function()? onTap;
+  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
 
   const TextFormFieldWidget(
       {Key? key,
       required this.hintText,
-      required this.controller,
+      this.controller,
       required this.validator,
       required this.keyboardType,
+      this.onChanged,
+      this.onFieldSubmitted,
       this.onTap})
       : super(key: key);
 
@@ -23,6 +27,8 @@ class TextFormFieldWidget extends StatelessWidget {
       validator: validator,
       controller: controller,
       keyboardType: keyboardType,
+      onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
       onTap: onTap,
       decoration: InputDecoration(
         hintText: hintText,

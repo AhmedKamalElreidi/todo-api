@@ -17,6 +17,7 @@ void main() async {
   await DioHelper.init();
   Bloc.observer = MyBlocObserver();
 
+  //await SecureStorage.deleteData(key: SecureKey.token);
   SecureVariables.token = await SecureStorage.getData(key: SecureKey.token);
   Widget? widget;
   if (SecureVariables.token != null) {

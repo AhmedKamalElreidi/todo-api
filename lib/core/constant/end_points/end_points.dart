@@ -4,4 +4,6 @@ class EndPoints {
   static const String register = "register";
   static const String logout = "logout";
   static const String tasks = "tasks";
+  static String deleteTask({required int id}) => "$tasks/$id";
+  static String singleTask({required int id}) => "$tasks/$id";
 }

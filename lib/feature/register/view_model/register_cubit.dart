@@ -31,7 +31,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     if (response.statusCode == 200) {
       emit(RegisterSuccessState(token: response.data["data"]["token"]));
     } else {
-      emit(RegisterErrorState(error: response.data["message"]));
+      emit(RegisterErrorState(error: response.data["errors"]["email"][0]));
     }
   }
 }

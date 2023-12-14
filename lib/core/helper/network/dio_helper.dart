@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:todo_tast_app/core/constant/end_points/end_points.dart';
 
 class DioHelper {
@@ -38,6 +39,14 @@ class DioHelper {
         receiveDataWhenStatusError: true,
       ),
     );
+    dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90));
   }
 
   //************************************  postdata  *********************************
@@ -93,7 +102,26 @@ class DioHelper {
       rethrow;
     }
   }
+
+  static Future<Response> deleteData({
+    required String url,
+    Map<String, dynamic>? query,
+    dynamic data,
+    String lang = 'en',
+    String? token,
+  }) async {
+    try {
+      dio.options.headers = {
+        'Authorization': 'Bearer $token',
+      };
+      return await dio.delete(url, queryParameters: query, data: data);
+    } catch (error) {
+      print(error.toString());
+      rethrow;
+    }
+  }
 }
+
 // class DioServices {
 //   static Future<Response?> registerPost(String name, String email,
 //       String password, String confirmPassword) async {

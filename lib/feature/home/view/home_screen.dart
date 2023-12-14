@@ -4,11 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_tast_app/core/helper/secure_storage/secure_storage.dart';
 import 'package:todo_tast_app/core/util/app_functions/app_functions.dart';
 import 'package:todo_tast_app/core/util/secure_keys/secure_key.dart';
-import 'package:todo_tast_app/feature/home/view_model/cubit/task_cubit.dart';
-import 'package:todo_tast_app/feature/home/view_model/cubit/task_state.dart';
+import 'package:todo_tast_app/feature/home/view_model/delete-cubit/delete_cubit_cubit.dart';
+import 'package:todo_tast_app/feature/home/view_model/delete-cubit/delete_cubit_state.dart';
 import 'package:todo_tast_app/feature/home/view_model/logout_cubit/logout_cubit.dart';
 import 'package:todo_tast_app/feature/home/view_model/logout_cubit/logout_state.dart';
+import 'package:todo_tast_app/feature/home/view_model/task_cubit/task_cubit.dart';
+import 'package:todo_tast_app/feature/home/view_model/task_cubit/task_state.dart';
 import 'package:todo_tast_app/feature/register/view/register_screen.dart';
+import 'package:todo_tast_app/feature/update_task/view/update_task.dart';
 
 import '../../add_task/view/add_task_screen.dart';
 
@@ -169,95 +172,136 @@ class HomeScreen extends StatelessWidget {
                 child: ListView.separated(
                     itemBuilder: (context, index) {
                       var info = cubit.allTaskModel?.data?.tasks![index];
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: Colors.green.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.green)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                info?.title ?? "",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize: 18.sp),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                info?.description ?? "",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                    fontSize: 14.sp),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              // SizedBox(
-                              //   width: 50,
-                              //   height: 50,
-                              //   child: Image.file((info?.image ?? "") as File),
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border:
-                                              Border.all(color: Colors.pink)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            const Icon(Icons.timer_outlined),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(info?.startDate ?? "")
-                                          ],
+                      return InkWell(
+                        onTap: () {
+                          AppFunctions.navigateTo(
+                              context: context,
+                              navigatedScreen: UpdateTaskScreen(
+                                id: info!.id!,
+                                // des: info.description!,
+                              ));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.green.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.green)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      info?.title ?? "",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 18.sp),
+                                    ),
+                                    BlocProvider(
+                                      create: (context) => DeleteCubitCubit(),
+                                      child: BlocConsumer<DeleteCubitCubit,
+                                          DeleteCubitState>(
+                                        listener: (context, state) {
+                                          if (state is DeleteCubitSuccess) {
+                                            cubit.getTask();
+                                          }
+                                        },
+                                        builder: (context, state) {
+                                          var cubit2 =
+                                              DeleteCubitCubit.get(context);
+                                          return IconButton(
+                                              onPressed: () {
+                                                print("iddddddd: ${info!.id}");
+                                                cubit2.deleteTask(id: info.id!);
+                                              },
+                                              icon: const Icon(
+                                                Icons.close,
+                                                color: Colors.red,
+                                                size: 30,
+                                              ));
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  info?.description ?? "",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 14),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                // SizedBox(
+                                //   width: 50,
+                                //   height: 50,
+                                //   child: Image.file((info?.image ?? "") as File),
+                                // ),
+                                // const SizedBox(
+                                //   height: 10,
+                                // ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border:
+                                                Border.all(color: Colors.pink)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              const Icon(Icons.timer_outlined),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text(info?.startDate ?? "")
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border:
-                                              Border.all(color: Colors.pink)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                                Icons.timer_off_outlined),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(info?.endDate ?? "")
-                                          ],
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border:
+                                                Border.all(color: Colors.pink)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                  Icons.timer_off_outlined),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text(info?.endDate ?? "")
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            ],
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       );

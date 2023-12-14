@@ -3,7 +3,7 @@ import 'package:todo_tast_app/core/allTasksModel/all_tasks_model.dart';
 import 'package:todo_tast_app/core/constant/end_points/end_points.dart';
 import 'package:todo_tast_app/core/helper/network/dio_helper.dart';
 import 'package:todo_tast_app/core/util/secure_keys/secure_variable.dart';
-import 'package:todo_tast_app/feature/home/view_model/cubit/task_state.dart';
+import 'package:todo_tast_app/feature/home/view_model/task_cubit/task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial());
