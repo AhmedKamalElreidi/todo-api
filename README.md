@@ -1,16 +1,22 @@
-# todo_tast_app
+# Todo App  With Api
 
-A new Flutter project.
+## working with All ApIs operation (post - get - put - delete ).
 
-## Getting Started
+## Key Features:
 
-This project is a starting point for a Flutter application.
+- Using Dio Api.
+- Bloc(Cubit) state management for a reactive UI.
+- Persistent Storage: Secure Storage.
+- MVVM architecture for a structured and organized codebase.
 
-A few resources to get you started if this is your first Flutter project:
+## App Screens
+<div>
+  <img src="https://github.com/AhmedKamalElreidi/todo-api/assets/107802782/7f51c3cc-1f1b-4135-880f-cf708daa2df6" width="200" >
+  <img src="https://github.com/AhmedKamalElreidi/todo-api/assets/107802782/c3f898d7-dfa9-4740-b950-5b0c54e83c46" width="200" >
+  <img src="https://github.com/AhmedKamalElreidi/todo-api/assets/107802782/e565792c-499c-4a1b-998e-4e785743fc66" width="200" >
+  <img src="https://github.com/AhmedKamalElreidi/todo-api/assets/107802782/21195c74-44b7-4061-85f1-ec49ba8c07a3" width="200" >
+  <img src="https://github.com/AhmedKamalElreidi/todo-api/assets/107802782/ca7fec11-9b9f-415b-9fc6-ee1bc08dad5a" width="200" >
+  <img src="https://github.com/AhmedKamalElreidi/todo-api/assets/107802782/5ddc1e58-361a-47e8-823b-67f79c256705" width="200" >
+  <img src="https://github.com/AhmedKamalElreidi/todo-api/assets/107802782/54b446b6-7fd2-46f7-a7fa-015e42c9ddd1" width="200" >
+</div>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
